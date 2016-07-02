@@ -29,13 +29,13 @@
 
         mapPropertyName(fn) {
             return this.map(
-                ({name, value}) => ({name: fn(name), value})
+                ({name, value}) => ({name: fn(name, this), value})
             );
         }
 
         mapPropertyValue(fn) {
             return this.map(
-                ({name, value}) => ({name, value: fn(value)})
+                ({name, value}) => ({name, value: fn(value, this)})
             );
         }
 
