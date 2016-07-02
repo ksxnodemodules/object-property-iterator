@@ -1,0 +1,16 @@
+{
+	"name": "object-map",
+	"version": "0.0.0",
+	"description": "Transform an Object to another",
+	"main": "index.js",
+	"keywords": [
+		"object-map",
+		"transform-object",
+		"map-properties",
+		"transform-properties",
+		"properties",
+		"object-properties"
+	],
+	"author": "Hoàng Văn Khải <hvksmr1996@gmail.com>",
+	"license": "MIT"
+}
