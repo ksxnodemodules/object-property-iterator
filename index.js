@@ -27,13 +27,13 @@
             return new this.constructor(result);
         }
 
-        mapPropertyName(fn) {
+        mapPropertyNames(fn) {
             return this.map(
                 ({name, value}) => ({name: fn(name, this), value})
             );
         }
 
-        mapPropertyValue(fn) {
+        mapPropertyValues(fn) {
             return this.map(
                 ({name, value}) => ({name, value: fn(value, this)})
             );

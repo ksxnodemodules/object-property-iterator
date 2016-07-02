@@ -32,8 +32,8 @@ new ObjectMap(object).map(
 
 ```javascript
 new ObjectMap(object)
-    .mapPropertyName(name => name.toUpperCase())
-    .mapPropertyValue(value => value * value)
+    .mapPropertyNames(name => name.toUpperCase())
+    .mapPropertyValues(value => value * value)
     .getObject()
 ```
 
