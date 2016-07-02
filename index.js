@@ -20,7 +20,7 @@
 
         map(fn) {
             var result = createObject(getPrototypeOf(this.object));
-            for (let property of properties) {
+            for (let property of this.properties) {
                 let {name, value} = fn({name: property, value: object[property]}, this);
                 result[name] = value;
             }
