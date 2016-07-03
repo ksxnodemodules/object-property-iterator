@@ -19,8 +19,9 @@
         }
 
         map(fn) {
-            var result = createObject(getPrototypeOf(this.object));
-            for (let property of this.properties) {
+            var {object, properties} = this;
+            var result = createObject(getPrototypeOf(object));
+            for (let property of properties) {
                 let {name, value} = fn({name: property, value: object[property]}, this);
                 result[name] = value;
             }
