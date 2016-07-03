@@ -13,7 +13,7 @@ Transform an Object to another
 ```javascript
 var ObjectMap = require('object-map')
 var object = {
-    a: 0, b: 1, c: 2
+    a: 0, b: 1, c: 2, d: 3
 }
 ```
 
