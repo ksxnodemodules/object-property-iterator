@@ -18,7 +18,7 @@
             }
         }
 
-        map(fn) {
+        mapDataProperties(fn) {
             var {object, properties} = this;
             var result = createObject(getPrototypeOf(object));
             for (let property of properties) {
@@ -28,20 +28,20 @@
             return new this.constructor(result);
         }
 
-        mapPropertyNames(fn) {
-            return this.map(
+        mapDataPropertyNames(fn) {
+            return this.mapDataProperties(
                 ({name, value}) => ({name: fn(name, this), value})
             );
         }
 
-        mapPropertyValues(fn) {
-            return this.map(
+        mapDataPropertyValues(fn) {
+            return this.mapDataProperties(
                 ({name, value}) => ({name, value: fn(value, this)})
             );
         }
 
-        swap() {
-            return this.map(
+        swapDataPropertyValues() {
+            return this.mapDataProperties(
                 ({name, value}) => ({name: value, value: name})
             );
         }

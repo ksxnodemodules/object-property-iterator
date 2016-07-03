@@ -20,7 +20,7 @@ var object = {
 ### Transform both property names and values at once
 
 ```javascript
-new ObjectMap(object).map(
+new ObjectMap(object).mapDataProperties(
     ({name, value}) => ({
         'name': name.toUpperCase(),
         'value': value * value
@@ -32,13 +32,13 @@ new ObjectMap(object).map(
 
 ```javascript
 new ObjectMap(object)
-    .mapPropertyNames(name => name.toUpperCase())
-    .mapPropertyValues(value => value * value)
+    .mapDataPropertyNames(name => name.toUpperCase())
+    .mapDataPropertyValues(value => value * value)
     .getObject()
 ```
 
 ### Swap property names and values
 
 ```javascript
-new ObjectMap(object).swap().getObject()
+new ObjectMap(object).swapDataPropertyValues().getObject()
 ```
