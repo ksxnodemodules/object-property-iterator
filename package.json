@@ -1,7 +1,7 @@
 {
 	"name": "object-property-iterator",
 	"version": "0.0.0",
-	"description": "Transform an Object to another",
+	"description": "Traverse object properties, create mirror objects",
 	"main": "index.js",
 	"scripts": {
 		"test": "bash -c ./test/index.sh"
