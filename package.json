@@ -1,9 +1,19 @@
 {
-	"name": "object-map",
+	"name": "object-property-iterator",
 	"version": "0.0.0",
 	"description": "Transform an Object to another",
 	"main": "index.js",
+	"scripts": {
+		"test": "bash -c ./test/index.sh"
+	},
+	"dependencies": {
+		"x-iterable-base": "^2.0.0"
+	},
 	"keywords": [
+		"traverse-properties",
+		"traverse-object",
+		"object-filter",
+		"filter-properties",
 		"object-map",
 		"transform-object",
 		"map-properties",
