@@ -92,7 +92,7 @@ class ConfiguredPropertyIterable extends Root {
             get object() {
                 var result = mksibling(object)
                 for (let [key, descriptor] of this) {
-                    defineProperty(result, key, descriptor)
+                    descriptor && defineProperty(result, key, descriptor)
                 }
                 return result
             },
