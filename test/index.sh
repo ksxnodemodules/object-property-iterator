@@ -1,0 +1,2 @@
+
+node -p "require('./test')"
