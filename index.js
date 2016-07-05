@@ -265,7 +265,7 @@ class AssignedPropertyIterable extends Root {
                     try {
                         yield new AssignedPropertyIterator(key, object[key])
                     } catch (error) {
-                        onerror(AssignedPropertyReadingError(key, error))
+                        onerror(new AssignedPropertyReadingError(key, error))
                     }
                 }
             },
@@ -276,7 +276,7 @@ class AssignedPropertyIterable extends Root {
                     try {
                         result[key] = value
                     } catch (error) {
-                        onerror(AssignedPropertyWritingError(key, error))
+                        onerror(new AssignedPropertyWritingError(key, error))
                     }
                 }
                 return result
