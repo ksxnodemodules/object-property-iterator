@@ -1,6 +1,8 @@
 
 'use strict'
 
+/* PREPARATION */
+
 var objiter = require('..')
 
 var {
@@ -13,7 +15,13 @@ var object = {
     __proto__: null
 }
 
+/* ALL TESTS */
+
 var result = {
+
+    // MAP
+
+    // both at once
     '.configures.map':
         iterate(object).configures.map(
             ([key, {value}]) =>
@@ -34,6 +42,8 @@ var result = {
             ([key, get, set]) =>
                 [key.toUpperCase(), () => get() * get(), x => set(Math.sqrt(x))]
         ).object,
+
+    // step by step
     '.configures.keys.descriptors.map':
         iterate(object).configures
             .keys.map(x => x.toUpperCase())
@@ -58,6 +68,10 @@ var result = {
             .getters.map(f => () => f() * f())
             .setters.map(f => x => f(Math.sqrt(x)))
             .object,
+
+    // FILTER
+
+    // both at once
     '.configures.filter':
         iterate(object).configures.filter(
             ([key, {value}]) => key > 'c' && value & 1
@@ -74,6 +88,8 @@ var result = {
         iterate(object).accessors.filter(
             ([key, get]) => key > 'c' && get() & 1
         ).object,
+
+    // step by step
     '.configures.keys.descriptors.filter':
         iterate(object).configures
             .keys.filter(x => x > 'c')
@@ -95,7 +111,13 @@ var result = {
             .getters.filter(f => f() & 1)
             .setters.filter(() => true)
             .object,
+
+    // FINALLY
+    
     __proto__: null
+
 }
+
+/* OUTPUT */
 
 module.exports = JSON.stringify(result, undefined, 2)
