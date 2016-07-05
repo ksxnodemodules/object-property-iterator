@@ -4,7 +4,7 @@
 	"description": "Traverse object properties, create mirror objects",
 	"main": "index.js",
 	"scripts": {
-		"test": "bash -c ./test/index.sh"
+		"test": "node ./test/test.js"
 	},
 	"dependencies": {
 		"x-iterable-base": "^2.0.0"
