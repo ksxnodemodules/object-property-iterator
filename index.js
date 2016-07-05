@@ -96,6 +96,86 @@ var Root = XIterable(class {
         return this.object
     }
 
+    mapProperties(fn) {
+        return this.configures.map(fn)
+    }
+
+    mapPropertyKeys(fn) {
+        return this.configures.keys.map(fn)
+    }
+
+    mapPropertyDescriptors(fn) {
+        return this.configures.descriptors.map(fn)
+    }
+
+    mapDataProperties(fn) {
+        return this.data.map(fn)
+    }
+
+    mapDataPropertyKeys(fn) {
+        return this.data.keys.map(fn)
+    }
+
+    mapDataPropertyValues(fn) {
+        return this.data.values.map(fn)
+    }
+
+    mapAccessorProperties(fn) {
+        return this.accessors.map(fn)
+    }
+
+    mapAccessorPropertyKeys(fn) {
+        return this.accessors.keys.map(fn)
+    }
+
+    mapAccessorPropertyGetters(fn) {
+        return this.accessors.getters.map(fn)
+    }
+
+    mapAccessorPropertySetters(fn) {
+        return this.accessors.setters.map(fn)
+    }
+
+    filterProperties(fn) {
+        return this.configures.filter(fn)
+    }
+
+    filterPropertyKeys(fn) {
+        return this.configures.keys.filter(fn)
+    }
+
+    filterPropertyDescriptors(fn) {
+        return this.configures.descriptors.filter(fn)
+    }
+
+    filterDataProperties(fn) {
+        return this.data.filter(fn)
+    }
+
+    filterDataPropertyKeys(fn) {
+        return this.data.keys.filter(fn)
+    }
+
+    filterDataPropertyValues(fn) {
+        return this.data.values.filter(fn)
+    }
+
+    filterAccessorProperties(fn) {
+        return this.accessors.filter(fn)
+    }
+
+    filterAccessorPropertyKeys(fn) {
+        return this.accessors.keys.filter(fn)
+    }
+
+    filterAccessorPropertyGetters(fn) {
+        return this.accessors.getters.filter(fn)
+    }
+
+    filterAccessorPropertySetters(fn) {
+        return this.accessors.setters.filter(fn)
+    }
+
 })
 
 class ConfiguredPropertyIterable extends Root {
