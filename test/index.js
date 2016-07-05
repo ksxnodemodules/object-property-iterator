@@ -58,6 +58,43 @@ var result = {
             .getters.map(f => () => f() * f())
             .setters.map(f => x => f(Math.sqrt(x)))
             .object,
+    '.configures.filter':
+        iterate(object).configures.filter(
+            ([key, {value}]) => key > 'c' && value & 1
+        ).object,
+    '.assignments.filter':
+        iterate(object).assignments.filter(
+            ([key, value]) => key > 'c' && value & 1
+        ).object,
+    '.data.filter':
+        iterate(object).data.filter(
+            ([key, value]) => key > 'c' && value & 1
+        ).object,
+    '.accessors.filter':
+        iterate(object).accessors.filter(
+            ([key, get]) => key > 'c' && get() & 1
+        ).object,
+    '.configures.keys.descriptors.filter':
+        iterate(object).configures
+            .keys.filter(x => x > 'c')
+            .descriptors.filter(({value}) => value & 1)
+            .object,
+    '.assignments.keys.values.filter':
+        iterate(object).assignments
+            .keys.filter(x => x > 'c')
+            .values.filter(x => x & 1)
+            .object,
+    '.data.keys.values.filter':
+        iterate(object).data
+            .keys.filter(x => x > 'c')
+            .values.filter(x => x & 1)
+            .object,
+    '.accessors.keys.getters.setters.filter':
+        iterate(object).accessors
+            .keys.filter(x => x > 'c')
+            .getters.filter(f => f() & 1)
+            .setters.filter(() => true)
+            .object,
     __proto__: null
 }
 
