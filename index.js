@@ -44,7 +44,30 @@ var objectKeyIteratorCreators = {
 var mksibling = object =>
     createObject(getPrototypeOf(object))
 
-var mkownmap = (map, self) => ({map, __proto__: self})
+var mksubobj = (iterable, Pair, names) => {
+    var result = createObject(iterable)
+    for (let index in names) {
+        defineProperty(
+            result, names[index], {
+                get() {
+                    let subobj = createObject(this)
+                    for (let method of ['map', 'filter']) {
+                        subobj[method] = fn => this[method](
+                            elements => new Pair(
+                                ...elements.slice(0, index),
+                                fn(elements[index]),
+                                ...elements.slice(index + 1)
+                            )
+                        )
+                    }
+                    return subobj
+                },
+                enumerable: true
+            }
+        )
+    }
+    return result
+}
 
 var Root = XIterable(class {
 
@@ -97,27 +120,7 @@ class ConfiguredPropertyIterable extends Root {
                 return result
             },
 
-            get keys() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, descriptor]) =>
-                            new ConfiguredPropertyIterator(fn(key), descriptor)
-                    ),
-                    this
-                )
-            },
-
-            get descriptors() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, descriptor]) =>
-                            new ConfiguredPropertyIterator(key, fn(descriptor))
-                    ),
-                    this
-                )
-            },
-
-            __proto__: this
+            __proto__: mksubobj(this, ConfiguredPropertyIterator, ['keys', 'descriptors'])
 
         }
 
@@ -147,27 +150,7 @@ class DataPropertyIterable extends Root {
                 return result
             },
 
-            get keys() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, value]) =>
-                            new DataPropertyIterator(fn(key), value)
-                    ),
-                    this
-                )
-            },
-
-            get values() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, value]) =>
-                            new DataPropertyIterator(key, fn(value))
-                    ),
-                    this
-                )
-            },
-
-            __proto__: this
+            __proto__: mksubobj(this, DataPropertyIterator, ['keys', 'values'])
 
         }
 
@@ -197,37 +180,7 @@ class AccessorPropertyIterable extends Root {
                 return result
             },
 
-            get keys() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, get, set]) =>
-                            new AccessorPropertyIterator(fn(key), get, set)
-                    ),
-                    this
-                )
-            },
-
-            get getters() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, get, set]) =>
-                            new AccessorPropertyIterator(key, fn(get), set)
-                    ),
-                    this
-                )
-            },
-
-            get setters() {
-                return mkownmap(
-                    fn => this.map(
-                        ([key, get, set]) =>
-                            new AccessorPropertyIterator(key, get, fn(set))
-                    ),
-                    this
-                )
-            },
-
-            __proto__: this
+            __proto__: mksubobj(this, AccessorPropertyIterator, ['keys', 'getters', 'setters'])
 
         }
 
