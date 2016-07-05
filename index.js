@@ -120,15 +120,15 @@ var Root = XIterable(class {
         return this.configures.descriptors.map(fn)
     }
 
-    mapDataProperties(fn) {
+    mapAssignedProperties(fn) {
         return this.assignments.map(fn)
     }
 
-    mapDataPropertyKeys(fn) {
+    mapAssignedPropertyKeys(fn) {
         return this.assignments.keys.map(fn)
     }
 
-    mapDataPropertyValues(fn) {
+    mapAssignedPropertyValues(fn) {
         return this.assignments.values.map(fn)
     }
 
@@ -160,15 +160,15 @@ var Root = XIterable(class {
         return this.configures.descriptors.filter(fn)
     }
 
-    filterDataProperties(fn) {
+    filterAssignedProperties(fn) {
         return this.assignments.filter(fn)
     }
 
-    filterDataPropertyKeys(fn) {
+    filterAssignedPropertyKeys(fn) {
         return this.assignments.keys.filter(fn)
     }
 
-    filterDataPropertyValues(fn) {
+    filterAssignedPropertyValues(fn) {
         return this.assignments.values.filter(fn)
     }
 
