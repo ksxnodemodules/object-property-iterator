@@ -18,7 +18,7 @@ var result = {
         iterate(object).configures.map(
             ([key, {value}]) =>
                 [key.toUpperCase(), {value: value * value, enumerable: true}]
-        ).data.object,
+        ).object,
     '.data.map':
         iterate(object).data.map(
             ([key, value]) =>
@@ -29,6 +29,25 @@ var result = {
             ([key, get, set]) =>
                 [key.toUpperCase(), () => get() * get(), x => set(Math.sqrt(x))]
         ).object,
+    '.configures.keys.descriptors.map':
+        iterate(object).configures
+            .keys.map(x => x.toUpperCase())
+            .descriptors.map(({value}) => ({
+                value: value * value,
+                enumerable: true
+            }))
+            .object,
+    '.data.keys.values.map':
+        iterate(object).data
+            .keys.map(x => x.toUpperCase())
+            .values.map(x => x * x)
+            .object,
+    '.accessors.keys.getters.setters.map':
+        iterate(object).accessors
+            .keys.map(x => x.toUpperCase())
+            .getters.map(f => () => f() * f())
+            .setters.map(f => x => f(Math.sqrt(x)))
+            .object,
     __proto__: null
 }
 
