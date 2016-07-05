@@ -1,8 +1,12 @@
 
 'use strict'
 
+/* IMPORT */
+
 var XIterable = require('x-iterable-base/template')
 var pair = require('./pair.js')
+
+/* LOCAL VARIABLES AND FUNCTIONS */
 
 var {
     Pair,
@@ -69,7 +73,11 @@ var mksubobj = (iterable, Pair, names) => {
     return result
 }
 
+/* ROOT ABSTRACT CLASS */
+
 var Root = XIterable(class {
+
+    // first constructor
 
     constructor(object, type = 'keys') {
         var iterate = objectKeyIteratorCreators[type];
@@ -79,6 +87,8 @@ var Root = XIterable(class {
             __proto__: this
         }
     }
+
+    // first fundamental manipulation
 
     get configures() {
         return new ConfiguredPropertyIterable(this.object)
@@ -91,6 +101,8 @@ var Root = XIterable(class {
     get accessors() {
         return new AccessorPropertyIterable(this.object)
     }
+
+    // alias
 
     getObject() {
         return this.object
@@ -177,6 +189,8 @@ var Root = XIterable(class {
     }
 
 })
+
+/* USABLE CLASSES */
 
 class ConfiguredPropertyIterable extends Root {
 
@@ -267,6 +281,8 @@ class AccessorPropertyIterable extends Root {
     }
 
 }
+
+/* EXPORT */
 
 module.exports = {
     Root,
