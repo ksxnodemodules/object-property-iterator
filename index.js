@@ -9,10 +9,11 @@ var pair = require('./pair.js')
 /* LOCAL VARIABLES AND FUNCTIONS */
 
 var {
-    Pair,
     ConfiguredPropertyIterator,
     AssignedPropertyIterator,
-    AccessorPropertyIterator
+    AccessorPropertyIterator,
+    AssignedPropertyReadingError,
+    AssignedPropertyWritingError
 } = pair
 
 var {
@@ -224,7 +225,7 @@ class ConfiguredPropertyIterable extends Root {
 
 class AssignedPropertyIterable extends Root {
 
-    constructor(object, type) {
+    constructor(object, type, onerror = error => console.error(error)) {
 
         var {getKeys} = super(object, type)
 
@@ -232,14 +233,22 @@ class AssignedPropertyIterable extends Root {
 
             * [iterator]() {
                 for (let key of getKeys()) {
-                    yield new AssignedPropertyIterator(key, object[key])
+                    try {
+                        yield new AssignedPropertyIterator(key, object[key])
+                    } catch (error) {
+                        onerror(AssignedPropertyReadingError(key, error))
+                    }
                 }
             },
 
             get object() {
                 var result = mksibling(object)
                 for (let [key, value] of this) {
-                    result[key] = value
+                    try {
+                        result[key] = value
+                    } catch (error) {
+                        onerror(AssignedPropertyWritingError(key, error))
+                    }
                 }
                 return result
             },
