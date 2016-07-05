@@ -254,7 +254,7 @@ class ConfiguredPropertyIterable extends Root {
 
 class AssignedPropertyIterable extends Root {
 
-    constructor(object, type, onerror = error => console.error(error)) {
+    constructor(object, type, onerror = ([key, error]) => console.error({key, error})) {
 
         var {getKeys} = super(object, type)
 
