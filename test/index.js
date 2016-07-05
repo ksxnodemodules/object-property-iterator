@@ -24,6 +24,11 @@ var result = {
             ([key, value]) =>
                 [key.toUpperCase(), value * value]
         ).object,
+    '.data.map':
+        iterate(object).data.map(
+            ([key, value]) =>
+                [key.toUpperCase(), value * value]
+        ).object,
     '.accessors.map':
         iterate(object).accessors.map(
             ([key, get, set]) =>
@@ -39,6 +44,11 @@ var result = {
             .object,
     '.assignments.keys.values.map':
         iterate(object).assignments
+            .keys.map(x => x.toUpperCase())
+            .values.map(x => x * x)
+            .object,
+    '.data.keys.values.map':
+        iterate(object).data
             .keys.map(x => x.toUpperCase())
             .values.map(x => x * x)
             .object,
