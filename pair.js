@@ -13,7 +13,7 @@ class ConfiguredPropertyIterator extends Pair {
     }
 }
 
-class DataPropertyIterator extends Pair {
+class AssignedPropertyIterator extends Pair {
     get value() {
         return this[1]
     }
@@ -31,6 +31,6 @@ class AccessorPropertyIterator extends Pair {
 module.exports = {
     Pair,
     ConfiguredPropertyIterator,
-    DataPropertyIterator,
+    AssignedPropertyIterator,
     AccessorPropertyIterator
 }

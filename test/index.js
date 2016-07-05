@@ -19,8 +19,8 @@ var result = {
             ([key, {value}]) =>
                 [key.toUpperCase(), {value: value * value, enumerable: true}]
         ).object,
-    '.data.map':
-        iterate(object).data.map(
+    '.assignments.map':
+        iterate(object).assignments.map(
             ([key, value]) =>
                 [key.toUpperCase(), value * value]
         ).object,
@@ -37,8 +37,8 @@ var result = {
                 enumerable: true
             }))
             .object,
-    '.data.keys.values.map':
-        iterate(object).data
+    '.assignments.keys.values.map':
+        iterate(object).assignments
             .keys.map(x => x.toUpperCase())
             .values.map(x => x * x)
             .object,

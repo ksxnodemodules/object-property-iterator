@@ -11,7 +11,7 @@ var pair = require('./pair.js')
 var {
     Pair,
     ConfiguredPropertyIterator,
-    DataPropertyIterator,
+    AssignedPropertyIterator,
     AccessorPropertyIterator
 } = pair
 
@@ -94,8 +94,8 @@ var Root = XIterable(class {
         return new ConfiguredPropertyIterable(this.object)
     }
 
-    get data() {
-        return new DataPropertyIterable(this.object)
+    get assignments() {
+        return new AssignedPropertyIterable(this.object)
     }
 
     get accessors() {
@@ -121,15 +121,15 @@ var Root = XIterable(class {
     }
 
     mapDataProperties(fn) {
-        return this.data.map(fn)
+        return this.assignments.map(fn)
     }
 
     mapDataPropertyKeys(fn) {
-        return this.data.keys.map(fn)
+        return this.assignments.keys.map(fn)
     }
 
     mapDataPropertyValues(fn) {
-        return this.data.values.map(fn)
+        return this.assignments.values.map(fn)
     }
 
     mapAccessorProperties(fn) {
@@ -161,15 +161,15 @@ var Root = XIterable(class {
     }
 
     filterDataProperties(fn) {
-        return this.data.filter(fn)
+        return this.assignments.filter(fn)
     }
 
     filterDataPropertyKeys(fn) {
-        return this.data.keys.filter(fn)
+        return this.assignments.keys.filter(fn)
     }
 
     filterDataPropertyValues(fn) {
-        return this.data.values.filter(fn)
+        return this.assignments.values.filter(fn)
     }
 
     filterAccessorProperties(fn) {
@@ -222,7 +222,7 @@ class ConfiguredPropertyIterable extends Root {
 
 }
 
-class DataPropertyIterable extends Root {
+class AssignedPropertyIterable extends Root {
 
     constructor(object, type) {
 
@@ -232,7 +232,7 @@ class DataPropertyIterable extends Root {
 
             * [iterator]() {
                 for (let key of getKeys()) {
-                    yield new DataPropertyIterator(key, object[key])
+                    yield new AssignedPropertyIterator(key, object[key])
                 }
             },
 
@@ -244,7 +244,7 @@ class DataPropertyIterable extends Root {
                 return result
             },
 
-            __proto__: mksubobj(this, DataPropertyIterator, ['keys', 'values'])
+            __proto__: mksubobj(this, AssignedPropertyIterator, ['keys', 'values'])
 
         }
 
@@ -287,7 +287,7 @@ class AccessorPropertyIterable extends Root {
 module.exports = {
     Root,
     ConfiguredPropertyIterable,
-    DataPropertyIterable,
+    AssignedPropertyIterable,
     AccessorPropertyIterable,
     iterate: (...args) => new Root(...args),
     __proto__: pair
