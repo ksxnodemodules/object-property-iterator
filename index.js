@@ -56,17 +56,19 @@ var mksubobj = (iterable, Pair, names) => {
         defineProperty(
             result, names[index], {
                 get() {
-                    let subobj = createObject(this)
-                    for (let method of ['map', 'filter']) {
-                        subobj[method] = fn => this[method](
+                    return {
+                        map: fn => this.map(
                             elements => new Pair(
                                 ...elements.slice(0, index),
                                 fn(elements[index]),
                                 ...elements.slice(index + 1)
                             )
-                        )
+                        ),
+                        filter: fn => this.filter(
+                            elements => fn(elements[index])
+                        ),
+                        __proto__: this
                     }
-                    return subobj
                 },
                 enumerable: true
             }
