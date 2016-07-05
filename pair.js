@@ -7,19 +7,21 @@ class Pair extends Array {
     }
 }
 
-class ConfiguredPropertyIterator extends Pair {
+class Iterator extends Pair {}
+
+class ConfiguredPropertyIterator extends Iterator {
     get descriptor() {
         return this[1]
     }
 }
 
-class AssignedPropertyIterator extends Pair {
+class AssignedPropertyIterator extends Iterator {
     get value() {
         return this[1]
     }
 }
 
-class AccessorPropertyIterator extends Pair {
+class AccessorPropertyIterator extends Iterator {
     get get() {
         return this[1]
     }
@@ -28,9 +30,29 @@ class AccessorPropertyIterator extends Pair {
     }
 }
 
+class ErrorPair extends Pair {
+    get key() {
+        return this[0]
+    }
+    get error() {
+        return this[1]
+    }
+    raise() {
+        throw this.error
+    }
+}
+
+class AssignedPropertyReadingError extends ErrorPair {}
+
+class AssignedPropertyWritingError extends ErrorPair {}
+
 module.exports = {
     Pair,
+    Iterator,
     ConfiguredPropertyIterator,
     AssignedPropertyIterator,
-    AccessorPropertyIterator
+    AccessorPropertyIterator,
+    ErrorPair,
+    AssignedPropertyReadingError,
+    AssignedPropertyWritingError
 }
