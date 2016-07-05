@@ -12,6 +12,7 @@ var {
     ConfiguredPropertyIterator,
     AssignedPropertyIterator,
     AccessorPropertyIterator,
+    DataPropertyIterator,
     AssignedPropertyReadingError,
     AssignedPropertyWritingError
 } = pair

@@ -57,6 +57,7 @@ module.exports = {
     Iterator,
     ConfiguredPropertyIterator,
     AssignedPropertyIterator,
+    DataPropertyIterator,
     AccessorPropertyIterator,
     ErrorPair,
     AssignedPropertyReadingError,
