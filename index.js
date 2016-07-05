@@ -92,15 +92,19 @@ var Root = XIterable(class {
     // first fundamental manipulation
 
     get configures() {
-        return new ConfiguredPropertyIterable(this.object)
+        return new ConfiguredPropertyIterable(this.object, this.type)
     }
 
     get assignments() {
-        return new AssignedPropertyIterable(this.object)
+        return new AssignedPropertyIterable(this.object, this.type)
+    }
+
+    get data() {
+        return new DataPropertyIterable(this.object, this.type)
     }
 
     get accessors() {
-        return new AccessorPropertyIterable(this.object)
+        return new AccessorPropertyIterable(this.object, this.type)
     }
 
     // alias
@@ -131,6 +135,18 @@ var Root = XIterable(class {
 
     mapAssignedPropertyValues(fn) {
         return this.assignments.values.map(fn)
+    }
+
+    mapDataProperties(fn) {
+        return this.data.map(fn)
+    }
+
+    mapDataPropertyKeys(fn) {
+        return this.data.keys.map(fn)
+    }
+
+    mapDataPropertyValues(fn) {
+        return this.data.values.map(fn)
     }
 
     mapAccessorProperties(fn) {
@@ -171,6 +187,18 @@ var Root = XIterable(class {
 
     filterAssignedPropertyValues(fn) {
         return this.assignments.values.filter(fn)
+    }
+
+    filterDataProperties(fn) {
+        return this.data.filter(fn)
+    }
+
+    filterDataPropertyKeys(fn) {
+        return this.data.keys.filter(fn)
+    }
+
+    filterDataPropertyValues(fn) {
+        return this.data.values.filter(fn)
     }
 
     filterAccessorProperties(fn) {
@@ -261,16 +289,48 @@ class AssignedPropertyIterable extends Root {
 
 }
 
-class AccessorPropertyIterable extends Root {
+class DataPropertyIterable extends Root {
 
-    constructor(object, type) {
+    constructor(object, type, writable = true, enumerable = true, configurable = false) {
 
-        var {getKeys} = super(object, type)
+        super(object, type)
 
         return {
 
             * [iterator]() {
-                for (let [key, {get, set, value}] of new ConfiguredPropertyIterable(object)) {
+                for (let [key, {get, set, value}] of new ConfiguredPropertyIterable(object, type)) {
+                    if (!(get || set)) {
+                        yield new DataPropertyIterator(key, value)
+                    }
+                }
+            },
+
+            get object() {
+                var result = mksibling(object)
+                for (let [key, value] of this) {
+                    defineProperty(result, key, {value, writable, enumerable, configurable})
+                }
+                return result
+            },
+
+            __proto__: mksubobj(this, DataPropertyIterator, ['keys', 'values'])
+
+        }
+
+    }
+
+}
+
+class AccessorPropertyIterable extends Root {
+
+    constructor(object, type, enumerable = true, configurable = false) {
+
+        super(object, type)
+
+        return {
+
+            * [iterator]() {
+                for (let [key, {get, set, value}] of new ConfiguredPropertyIterable(object, type)) {
                     yield new AccessorPropertyIterator(key, get || (() => value), set || (x => value = x))
                 }
             },
@@ -278,7 +338,7 @@ class AccessorPropertyIterable extends Root {
             get object() {
                 var result = mksibling(object)
                 for (let [key, get, set] of this) {
-                    defineProperty(result, key, {get, set, enumerable: true})
+                    defineProperty(result, key, {get, set, enumerable, configurable})
                 }
                 return result
             },

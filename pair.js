@@ -21,6 +21,12 @@ class AssignedPropertyIterator extends Iterator {
     }
 }
 
+class DataPropertyIterator extends Iterator {
+    get value() {
+        return this[1]
+    }
+}
+
 class AccessorPropertyIterator extends Iterator {
     get get() {
         return this[1]
