@@ -26,13 +26,13 @@ var {
 
 var objectKeyIteratorCreators = {
 
-    ownnames: object =>
+    strings: object =>
         () => getOwnPropertyNames(object)[iterator](),
 
-    ownsymbols: object =>
+    symbols: object =>
         () => getOwnPropertySymbols(object)[iterator](),
 
-    ownkeys: object => function * () {
+    keys: object => function * () {
         yield * getOwnPropertyNames(object)
         yield * getOwnPropertySymbols(object)
     },
@@ -71,7 +71,7 @@ var mksubobj = (iterable, Pair, names) => {
 
 var Root = XIterable(class {
 
-    constructor(object, type = 'ownkeys') {
+    constructor(object, type = 'keys') {
         var iterate = objectKeyIteratorCreators[type];
         return {
             object, type,
