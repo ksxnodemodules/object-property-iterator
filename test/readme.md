@@ -33,8 +33,8 @@ The `npm test` command should results a JSON representation of an object whose p
     "B": 1,
     "C": 4,
     "D": 9,
-    "E": 25,
-    "F": 36
+    "E": 16,
+    "F": 25
 }
 ```
 
